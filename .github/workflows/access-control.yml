@@ -1,0 +1,15 @@
+name: CI/CD Access Control
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  enforce-access:
+    runs-on: self-hosted
+    steps:
+      - name: Validate GitHub Branch Protection
+        uses: ossf/scorecard-action@v2
+        with:
+          results_file: results.json
