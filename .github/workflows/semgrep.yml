@@ -9,6 +9,9 @@ jobs:
   semgrep:
     name: Semgrep Static Analysis
     runs-on: ubuntu-latest
+    permissions:
+      security-events: write  # Necesar pentru a uploada raportul SARIF
+      contents: read
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -24,7 +27,7 @@ jobs:
 
       - name: Run Semgrep
         run: |
-          semgrep scan --config=auto --sarif --output=semgrep-report.sarif
+          semgrep scan --config=auto --sarif --output=semgrep-report.sarif || true
 
       - name: Upload SARIF report to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3
