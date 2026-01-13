@@ -5,11 +5,21 @@ on:
     branches:
       - main
 
+permissions:
+  contents: read
+  actions: read
+  checks: read
+  pull-requests: read
+  issues: read
+  security-events: write
+
 jobs:
   enforce-access:
     runs-on: self-hosted
     steps:
       - name: Validate GitHub Branch Protection
-        uses: ossf/scorecard-action@v2
+        uses: ossf/scorecard-action@v2.4.0
         with:
           results_file: results.json
+          results_format: sarif
+          publish_results: true
